@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Elite UI Development | Modern Web Interfaces</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #4361ee;
+      --primary-dark: #3a56d4;
+      --secondary: #3f37c9;
+      --accent: #f72585;
+      --light: #f8f9fa;
+      --dark: #212529;
+      --gray: #6c757d;
+      --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--light);
+      color: var(--dark);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+    
+    /* Header Styles */
+    header {
+      background-color: white;
+      padding: 1.5rem 2rem;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+      transition: var(--transition);
+    }
+    
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--primary);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .logo span {
+      color: var(--accent);
+    }
+    
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+    }
+    
+    nav a {
+      color: var(--dark);
+      text-decoration: none;
+      font-weight: 500;
+      transition: var(--transition);
+      position: relative;
+      padding: 0.5rem 0;
+    }
+    
+    nav a:hover {
+      color: var(--primary);
+    }
+    
+    nav a.active {
+      color: var(--primary);
+    }
+    
+    nav a.active:after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 2px;
+      bottom: 0;
+      left: 0;
+      background-color: var(--accent);
+    }
+    
+    /* Hero Section */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 8rem 2rem 4rem;
+      background: linear-gradient(135deg, #4361ee, #3a0ca3);
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .hero-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+    
+    .hero-text h1 {
+      font-size: 3.2rem;
+      margin-bottom: 1.5rem;
+      line-height: 1.2;
+    }
+    
+    .hero-text p {
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+      opacity: 0.9;
+      max-width: 90%;
+    }
+    
+    .hero-stats {
+      display: flex;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    
+    .stat-item {
+      text-align: center;
+    }
+    
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+    
+    .stat-label {
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+    
+    .cta-buttons {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    
+    .btn {
+      padding: 0.9rem 2rem;
+      border-radius: 8px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: var(--transition);
+      display: inline-block;
+      font-size: 1rem;
+    }
+    
+    .btn-primary {
+      background-color: var(--accent);
+      color: white;
+      box-shadow: 0 4px 15px rgba(247, 37, 133, 0.3);
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(247, 37, 133, 0.4);
+      background-color: #ff0676;
+    }
+    
+    .btn-secondary {
+      border: 2px solid rgba(255,255,255,0.3);
+      color: white;
+    }
+    
+    .btn-secondary:hover {
+      background-color: rgba(255,255,255,0.1);
+      border-color: rgba(255,255,255,0.5);
+    }
+    
+    .hero-image {
+      position: relative;
+    }
+    
+    .design-illustration {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+      transform: perspective(1000px) rotateY(-10deg);
+      transition: var(--transition);
+    }
+    
+    .design-illustration:hover {
+      transform: perspective(1000px) rotateY(-5deg);
+    }
+    
+    /* Floating Elements */
+    .floating-element {
+      position: absolute;
+      background: rgba(255,255,255,0.15);
+      border-radius: 20px;
+      backdrop-filter: blur(5px);
+      animation: float 8s ease-in-out infinite;
+    }
+    
+    .element-1 {
+      width: 100px;
+      height: 100px;
+      top: 20%;
+      left: 5%;
+      animation-delay: 0s;
+    }
+    
+    .element-2 {
+      width: 80px;
+      height: 80px;
+      bottom: 15%;
+      right: 8%;
+      animation-delay: 1s;
+    }
+    
+    .element-3 {
+      width: 60px;
+      height: 60px;
+      top: 50%;
+      left: 60%;
+      animation-delay: 2s;
+      border-radius: 50%;
+    }
+    
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0) rotate(0deg);
+      }
+      50% {
+        transform: translateY(-20px) rotate(5deg);
+      }
+    }
+    
+    /* Services Section */
+    .section {
+      padding: 6rem 2rem;
+      position: relative;
+    }
+    
+    .section-title {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+    
+    .section-title h2 {
+      font-size: 2.5rem;
+      color: var(--primary);
+      position: relative;
+      display: inline-block;
+    }
+    
+    .section-title p {
+      color: var(--gray);
+      max-width: 700px;
+      margin: 1rem auto 0;
+    }
+    
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .service-card {
+      background: white;
+      border-radius: 15px;
+      padding: 2.5rem 2rem;
+      box-shadow: 0 5px 30px rgba(0,0,0,0.05);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+    
+    .service-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+    }
+    
+    .service-card:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+    }
+    
+    .service-icon {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 10px 20px rgba(67, 97, 238, 0.2);
+    }
+    
+    .service-card h3 {
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+      color: var(--dark);
+    }
+    
+    .service-card p {
+      color: var(--gray);
+      margin-bottom: 1.5rem;
+      font-size: 0.95rem;
+    }
+    
+    .service-link {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: var(--transition);
+    }
+    
+    .service-link:hover {
+      color: var(--accent);
+      gap: 0.8rem;
+    }
+    
+    /* Features Section */
+    .features {
+      background-color: white;
+    }
+    
+    .features-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+    
+    .features-image img {
+      width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    }
+    
+    .features-list {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+    
+    .feature-item {
+      display: flex;
+      gap: 1.5rem;
+    }
+    
+    .feature-icon {
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    
+    .feature-content h3 {
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+      color: var(--dark);
+    }
+    
+    .feature-content p {
+      color: var(--gray);
+      font-size: 0.95rem;
+    }
+    
+    /* Testimonials Section */
+    .testimonials {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+    }
+    
+    .testimonials .section-title h2 {
+      color: white;
+    }
+    
+    .testimonials .section-title p {
+      color: rgba(255,255,255,0.8);
+    }
+    
+    .testimonial-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .testimonial-card {
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 15px;
+      padding: 2rem;
+      transition: var(--transition);
+    }
+    
+    .testimonial-card:hover {
+      transform: translateY(-5px);
+      background: rgba(255,255,255,0.15);
+    }
+    
+    .testimonial-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .client-avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 3px solid rgba(255,255,255,0.3);
+    }
+    
+    .client-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .client-info h4 {
+      font-weight: 600;
+      margin-bottom: 0.2rem;
+    }
+    
+    .client-info p {
+      opacity: 0.8;
+      font-size: 0.9rem;
+    }
+    
+    .testimonial-rating {
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+    
+    .testimonial-text {
+      font-style: italic;
+      position: relative;
+    }
+    
+    .testimonial-text:before {
+      content: '"';
+      font-size: 4rem;
+      position: absolute;
+      top: -20px;
+      left: -15px;
+      opacity: 0.1;
+      line-height: 1;
+    }
+    
+    /* CTA Section */
+    .cta {
+      background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80') no-repeat center center/cover;
+      color: white;
+      text-align: center;
+      padding: 6rem 2rem;
+    }
+    
+    .cta h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .cta p {
+      max-width: 700px;
+      margin: 0 auto 2rem;
+      opacity: 0.9;
+    }
+    
+    /* Footer */
+    footer {
+      background-color: var(--dark);
+      color: white;
+      padding: 4rem 2rem 2rem;
+    }
+    
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 3rem;
+    }
+    
+    .footer-col h3 {
+      font-size: 1.3rem;
+      margin-bottom: 1.5rem;
+      position: relative;
+      padding-bottom: 0.5rem;
+    }
+    
+    .footer-col h3:after {
+      content: '';
+      position: absolute;
+      width: 50px;
+      height: 3px;
+      background: var(--accent);
+      bottom: 0;
+      left: 0;
+    }
+    
+    .footer-links {
+      list-style: none;
+    }
+    
+    .footer-links li {
+      margin-bottom: 0.8rem;
+    }
+    
+    .footer-links a {
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      transition: var(--transition);
+      display: block;
+    }
+    
+    .footer-links a:hover {
+      color: var(--accent);
+      transform: translateX(5px);
+    }
+    
+    .social-links {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    
+    .social-link {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+    }
+    
+    .social-link:hover {
+      background: var(--accent);
+      color: var(--dark);
+    }
+    
+    .copyright {
+      text-align: center;
+      padding-top: 2rem;
+      margin-top: 2rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.6);
+      font-size: 0.9rem;
+    }
+    
+    /* Responsive Styles */
+    @media (max-width: 992px) {
+      .hero-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      
+      .hero-text h1 {
+        font-size: 2.8rem;
+      }
+      
+      .hero-text p {
+        max-width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      
+      .hero-stats {
+        justify-content: center;
+      }
+      
+      .cta-buttons {
+        justify-content: center;
+      }
+      
+      .features-container {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+      
+      .features-image {
+        order: -1;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .hero-text h1 {
+        font-size: 2.2rem;
+      }
+      
+      .section-title h2 {
+        font-size: 2rem;
+      }
+      
+      nav ul {
+        gap: 1rem;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      .header-container {
+        flex-direction: column;
+        gap: 1rem;
+      }
+      
+      nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      
+      .hero-text h1 {
+        font-size: 1.8rem;
+      }
+      
+      .hero-stats {
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+      
+      .cta-buttons {
+        flex-direction: column;
+      }
+      
+      .btn {
+        width: 100%;
+        text-align: center;
+      }
+      
+      .cta h2 {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Header -->
+<header>
+  <div class="header-container">
+    <a href="#" class="logo">
+      <i class="fas fa-code"></i>
+      <span>Elite<span>UI</span>
+    </a>
+    <nav>
+      <ul>
+        <li><a href="#home" class="active">Home</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#testimonials">Testimonials</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<!-- Hero Section -->
+<section class="hero" id="home">
+  <div class="hero-content">
+    <div class="hero-text">
+      <h1>Crafting Exceptional User Interfaces That Drive Engagement</h1>
+      <p>We specialize in creating beautiful, intuitive UI designs that enhance user experience and boost conversions for your digital products.</p>
+      
+      <div class="hero-stats">
+        <div class="stat-item">
+          <div class="stat-number">150+</div>
+          <div class="stat-label">Projects Completed</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">98%</div>
+          <div class="stat-label">Client Satisfaction</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">4.9</div>
+          <div class="stat-label">Average Rating</div>
+        </div>
+      </div>
+      
+      <div class="cta-buttons">
+        <a href="#contact" class="btn btn-primary">Get Started</a>
+        <a href="#services" class="btn btn-secondary">Our Services</a>
+      </div>
+    </div>
+    <div class="hero-image">
+      <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="UI Design Illustration" class="design-illustration">
+    </div>
+  </div>
+  
+  <div class="floating-element element-1"></div>
+  <div class="floating-element element-2"></div>
+  <div class="floating-element element-3"></div>
+</section>
+
+<!-- Services Section -->
+<section class="section" id="services">
+  <div class="section-title">
+    <h2>Our UI Development Services</h2>
+    <p>We offer comprehensive solutions to transform your ideas into stunning, functional interfaces</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-icon">
+        <i class="fas fa-paint-brush"></i>
+      </div>
+      <h3>Custom UI Design</h3>
+      <p>Tailored interface designs that reflect your brand identity while prioritizing usability and aesthetic appeal.</p>
+      <a href="#" class="service-link">
+        Learn more <i class="fas fa-arrow-right"></i>
+      </a>
+    </div>
+    
+    <div class="service-card">
+      <div class="service-icon">
+        <i class="fas fa-mobile-alt"></i>
+      </div>
+      <h3>Responsive Development</h3>
+      <p>Pixel-perfect implementation that works flawlessly across all devices and screen sizes.</p>
+      <a href="#" class="service-link">
+        Learn more <i class="fas fa-arrow-right"></i>
+      </a>
+    </div>
+    
+    <div class="service-card">
+      <div class="service-icon">
+        <i class="fas fa-tachometer-alt"></i>
+      </div>
+      <h3>Performance Optimization</h3>
+      <p>Lightning-fast interfaces with optimized assets and efficient code for superior user experience.</p>
+      <a href="#" class="service-link">
+        Learn more <i class="fas fa-arrow-right"></i>
+      </a>
+    </div>
+    
+    <div class="service-card">
+      <div class="service-icon">
+        <i class="fas fa-user-friends"></i>
+      </div>
+      <h3>UX Consulting</h3>
+      <p>Expert advice on improving user flows, accessibility, and overall experience of your product.</p>
+      <a href="#" class="service-link">
+        Learn more <i class="fas fa-arrow-right"></i>
+      </a>
+    </div>
+    
+    <div class="service-card">
+      <div class="service-icon">
+        <i class="fas fa-sync-alt"></i>
+      </div>
+      <h3>Design Systems</h3>
+      <p>Comprehensive style guides and component libraries for consistent, scalable product development.</p>
+      <a href="#" class="service-link">
+        Learn more <i class="fas fa-arrow-right"></i>
+      </a>
+    </div>
+    
+    <div class="service-card">
+      <div class="service-icon">
+        <i class="fas fa-search"></i>
+      </div>
+      <h3>UI Audits</h3>
+      <p>In-depth analysis of your existing interface with actionable recommendations for improvement.</p>
+      <a href="#" class="service-link">
+        Learn more <i class="fas fa-arrow-right"></i>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Features Section -->
+<section class="section features" id="features">
+  <div class="features-container">
+    <div class="features-list">
+      <div class="feature-item">
+        <div class="feature-icon">
+          <i class="fas fa-lightbulb"></i>
+        </div>
+        <div class="feature-content">
+          <h3>Innovative Solutions</h3>
+          <p>We stay ahead of design trends to deliver fresh, modern interfaces that stand out in your market.</p>
+        </div>
+      </div>
+      
+      <div class="feature-item">
+        <div class="feature-icon">
+          <i class="fas fa-cogs"></i>
+        </div>
+        <div class="feature-content">
+          <h3>Technical Excellence</h3>
+          <p>Clean, maintainable code following best practices for performance and scalability.</p>
+        </div>
+      </div>
+      
+      <div class="feature-item">
+        <div class="feature-icon">
+          <i class="fas fa-users"></i>
+        </div>
+        <div class="feature-content">
+          <h3>User-Centered Approach</h3>
+          <p>Every design decision is backed by research and testing to ensure optimal user experience.</p>
+        </div>
+      </div>
+      
+      <div class="feature-item">
+        <div class="feature-icon">
+          <i class="fas fa-rocket"></i>
+        </div>
+        <div class="feature-content">
+          <h3>Rapid Prototyping</h3>
+          <p>Quick turnaround from concept to interactive prototypes for faster validation.</p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="features-image">
+      <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1528&q=80" alt="UI Design Features">
+    </div>
+  </div>
+</section>
+
+<!-- Testimonials Section -->
+<section class="section testimonials" id="testimonials">
+  <div class="section-title">
+    <h2>What Our Clients Say</h2>
+    <p>Don't just take our word for it - hear from businesses we've helped transform</p>
+  </div>
+  <div class="testimonial-grid">
+    <div class="testimonial-card">
+      <div class="testimonial-header">
+        <div class="client-avatar">
+          <img src="https://randomuser.me/api/portraits/women/45.jpg" alt="Sarah Johnson">
+        </div>
+        <div class="client-info">
+          <h4>Sarah Johnson</h4>
+          <p>CEO, TechStart Inc.</p>
+        </div>
+      </div>
+      <div class="testimonial-rating">
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+      </div>
+      <div class="testimonial-text">
+        <p>The UI redesign increased our conversion rate by 35% and reduced support queries significantly. The team understood our needs perfectly and delivered beyond expectations.</p>
+      </div>
+    </div>
+    
+    <div class="testimonial-card">
+      <div class="testimonial-header">
+        <div class="client-avatar">
+          <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Michael Chen">
+        </div>
+        <div class="client-info">
+          <h4>Michael Chen</h4>
+          <p>Product Manager, Finova</p>
+        </div>
+      </div>
+      <div class="testimonial-rating">
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+      </div>
+      <div class="testimonial-text">
+        <p>Their attention to detail is remarkable. They transformed our complex financial dashboard into an intuitive interface that our customers love using.</p>
+      </div>
+    </div>
+    
+    <div class="testimonial-card">
+      <div class="testimonial-header">
+        <div class="client-avatar">
+          <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Emma Rodriguez">
+        </div>
+        <div class="client-info">
+          <h4>Emma Rodriguez</h4>
+          <p>Marketing Director, StyleHub</p>
+        </div>
+      </div>
+      <div class="testimonial-rating">
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star-half-alt"></i>
+      </div>
+      <div class="testimonial-text">
+        <p>The mobile app interface they designed helped us triple our user engagement. Their creative solutions to UX challenges were impressive.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA Section -->
+<section class="section cta">
+  <h2>Ready to Elevate Your User Experience?</h2>
+  <p>Let's discuss how we can transform your digital product with exceptional interface design</p>
+  <a href="#contact" class="btn btn-primary">Start Your Project Today</a>
+</section>
+
+<!-- Footer -->
+<footer id="contact">
+  <div class="footer-container">
+    <div class="footer-col">
+      <h3>About EliteUI</h3>
+      <p>We specialize in creating beautiful, functional user interfaces that drive engagement and business growth.</p>
+      <div class="social-links">
+        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+        <a href="#" class="social-link"><i class="fab fa-dribbble"></i></a>
+        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#" class="social-link"><i class="fab fa-behance"></i></a>
+      </div>
+    </div>
+    
+    <div class="footer-col">
+      <h3>Quick Links</h3>
+      <ul class="footer-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#testimonials">Testimonials</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    
+    <div class="footer-col">
+      <h3>Services</h3>
+      <ul class="footer-links">
+        <li><a href="#">UI/UX Design</a></li>
+        <li><a href="#">Web Development</a></li>
+        <li><a href="#">Mobile App Design</a></li>
+        <li><a href="#">Design Systems</a></li>
+        <li><a href="#">UX Research</a></li>
+      </ul>
+    </div>
+    
+    <div class="footer-col">
+      <h3>Contact Us</h3>
+      <ul class="footer-links">
+        <li><i class="fas fa-map-marker-alt"></i> 123 Design Street, Creative City</li>
+        <li><i class="fas fa-phone-alt"></i> +1 (555) 123-4567</li>
+        <li><i class="fas fa-envelope"></i> hello@eliteui.com</li>
+      </ul>
+    </div>
+  </div>
+  
+  <div class="copyright">
+    <p>&copy; 2023 EliteUI. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+  // Smooth scrolling for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      e.preventDefault();
+      
+      const targetId = this.getAttribute('href');
+      if (targetId === '#') return;
+      
+      const targetElement = document.querySelector(targetId);
+      if (targetElement) {
+        window.scrollTo({
+          top: targetElement.offsetTop - 80,
+          behavior: 'smooth'
+        });
+        
+        // Update active nav link
+        document.querySelectorAll('nav a').forEach(link => {
+          link.classList.remove('active');
+        });
+        this.classList.add('active');
+      }
+    });
+  });
+  
+  // Header scroll effect
+  const header = document.querySelector('header');
+  
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 100) {
+      header.style.boxShadow = '0 5px 20px rgba(0,0,0,0.1)';
+    } else {
+      header.style.boxShadow = '0 2px 20px rgba(0,0,0,0.08)';
+    }
+  });
+  
+  // Set active nav link based on scroll position
+  const sections = document.querySelectorAll('section');
+  const navLinks = document.querySelectorAll('nav a');
+  
+  window.addEventListener('scroll', () => {
+    let current = '';
+    
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop;
+      const sectionHeight = section.clientHeight;
+      
+      if (pageYOffset >= sectionTop - 200) {
+        current = section.getAttribute('id');
+      }
+    });
+    
+    navLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === `#${current}`) {
+        link.classList.add('active');
+      }
+    });
+  });
+</script>
+
+
+<script src="https://static.app/js/static.js" type="text/javascript"></script>
+</body>
+</html>
